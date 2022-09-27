@@ -1,3 +1,4 @@
+<?php require 'partials/_unauth.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,6 @@
 
 <body>
   <?php require 'partials/_nav.php' ?>
-
   <main class="container">
     <div class="container py-3">
       <div class="p-4 mb-4 bg-light border rounded-3 shadow-lg">
@@ -23,14 +23,14 @@
           <div class="h-100 p-5 text-white bg-dark rounded-3 shadow-lg">
             <h2>Share your progress!</h2>
             <p>Create and invite your friends to your personal group on the website or join an existing group to view your friend's gym streak, workouts, and progress. Ping your friend if he is bunking the gym!</p>
-            <a class="btn btn-outline-light" href="/logger.php" role="button">Progress</a>
+            <a class="btn btn-outline-light" href="/progress.php" role="button">Progress</a>
           </div>
         </div>
         <div class="col-md-6">
           <div class="h-100 p-5 bg-light border rounded-3 shadow-lg">
             <h2>Log your workouts</h2>
             <p>Log your workouts and more using the logger tool and maintain a streak of going to the jim!<br> Update daily weight, calorie intake, and such.</p>
-            <button class="btn btn-outline-secondary" type="button">Logger</button>
+            <button class="btn btn-outline-secondary" href="/dailylog.php" type="button">Logger</button>
           </div>
         </div>
       </div>

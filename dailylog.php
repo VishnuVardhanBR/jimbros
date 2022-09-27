@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </select>
                     </div>
                     <!-- <div class="col-md-12">
-                        <label for="workouttime" class="form-label" min="1">Excercise Variations</label>
+                        <label for="workouttime" class="form-label" min="1">Variations</label>
                         <input type="text" class="form-control" id="workouttime" name="workouttime" required>
                     </div>
                     <div class="col-md-6">

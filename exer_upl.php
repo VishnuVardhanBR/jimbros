@@ -6,7 +6,7 @@ session_start();
 $sno = $_SESSION['sno'];
 $sql = "INSERT INTO `workoutlog` (`uid`, `mgroup`) VALUES ('$sno', '$mgroup')";
 $result = mysqli_query($conn, $sql);
-$result = mysqli_query($conn, "SELECT * FROM workoutlog  WHERE uid='$sno' ORDER BY uid DESC LIMIT 1;");
+$result = mysqli_query($conn, "SELECT * FROM workoutlog WHERE uid='$sno' ORDER BY id DESC LIMIT 1;");
 while ($row = mysqli_fetch_row($result)) {
     $wid = $row['0'];
 }
