@@ -1,5 +1,6 @@
 <div class="container my-5 py-5">
     <?php
+
     $sql = "SELECT COUNT(*) FROM dailylog WHERE uid = $sno";
     $result = mysqli_query($conn, $sql);
     $totaldays = mysqli_fetch_row($result)[0];

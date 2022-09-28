@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_num_rows(mysqli_query($conn, $sql)) == 0) {
             header("location: phychar.php");
         } else {
-            header("location: main.php");
+            header("location: index.php");
         }
     }
 }

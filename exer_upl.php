@@ -4,8 +4,14 @@ require 'partials/_dbconnect.php';
 $mgroup = $_POST['mgroup'];
 session_start();
 $sno = $_SESSION['sno'];
-$sql = "INSERT INTO `workoutlog` (`uid`, `mgroup`) VALUES ('$sno', '$mgroup')";
-$result = mysqli_query($conn, $sql);
+$td = date("Y-m-d");
+$result = mysqli_query($conn, "SELECT * FROM workoutlog WHERE uid='$sno' ORDER BY id DESC LIMIT 1;");
+while ($row = mysqli_fetch_row($result)) {
+    $oldwid = $row['0'];
+}
+$result = mysqli_query($conn, "DELETE FROM excercise WHERE wid = '$oldwid';");
+$sql = "INSERT INTO `workoutlog` (`uid`, `mgroup`) VALUES ('$sno', '$mgroup');";
+$result = mysqli_multi_query($conn, $sql);
 $result = mysqli_query($conn, "SELECT * FROM workoutlog WHERE uid='$sno' ORDER BY id DESC LIMIT 1;");
 while ($row = mysqli_fetch_row($result)) {
     $wid = $row['0'];

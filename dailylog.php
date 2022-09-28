@@ -2,6 +2,7 @@
 $result = false;
 require 'partials/_unauth.php';
 $sno = $_SESSION['sno'];
+$td = date("Y-m-d");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require 'partials/_dbconnect.php';
     if ($_POST['weight'] != "") {
@@ -16,12 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_row($result);
     $height = $row['3'];
-    $bmi = ($weight / ($height * $height));
+    $bmi = ($weight / ($height * $height)) * 10000;
     $workouttime = $_POST['workouttime'];
     $caloriein = $_POST['caloriein'];
     $calorieburn = $_POST['calorieburn'];
-    $sql = "INSERT INTO dailylog (uid,weight, workouttime, caloriein, calorieburn, bmi) VALUES ('$sno', '$weight', '$workouttime', '$caloriein', '$calorieburn', '$bmi');";
-    $result = mysqli_query($conn, $sql);
+    //$sql = "INSERT INTO dailylog (uid,weight, workouttime, caloriein, calorieburn, bmi) VALUES ('$sno', '$weight', '$workouttime', '$caloriein', '$calorieburn', '$bmi');";
+    $sql = "DELETE FROM dailylog WHERE uid = $sno and date LIKE '$td%';INSERT INTO dailylog (uid,weight, workouttime, caloriein, calorieburn, bmi) VALUES ('$sno', '$weight', '$workouttime', '$caloriein', '$calorieburn', '$bmi');";
+    $result = mysqli_multi_query($conn, $sql);
     //echo $sql;
 }
 ?>
@@ -43,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <strong>Success!</strong> Data inserted.
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>';
-        header('refresh:2; url=/main.php');
+        header('refresh:2; url=/index.php');
     }
     ?>
     <div id="show_alert"></div>
@@ -62,19 +64,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form class="row g-3" action="/dailylog.php" method="POST">
                     <div class="col-md-12">
                         <label for="weight" class="form-label" min="1" max="200">Weight (in kg)</label>
-                        <input type="text" class="form-control" id="weight" placeholder="" name="weight">
+                        <input type="number" class="form-control" id="weight" placeholder="" name="weight">
                     </div>
                     <div class="col-md-12">
                         <label for="workouttime" class="form-label" min="1">Workout time (in minutes)</label>
-                        <input type="text" class="form-control" id="workouttime" name="workouttime" required>
+                        <input type="number" class="form-control" id="workouttime" name="workouttime" required>
                     </div>
                     <div class="col-md-6">
                         <!-- <label for="caloriein" class="form-label" min="1">Calories intake</label> -->
-                        <input type="text" class="form-control" id="caloriein" name="caloriein" placeholder="Calories Intake" required>
+                        <input type="number" class="form-control" id="caloriein" name="caloriein" placeholder="Calories Intake" required>
                     </div>
                     <div class="col-md-6">
                         <!-- <label for="calorieburn" class="form-label" min="1">Calories burnt</label> -->
-                        <input type="text" class="form-control" id="calorieburn" name="calorieburn" placeholder="Calories Burnt" required>
+                        <input type="number" class="form-control" id="calorieburn" name="calorieburn" placeholder="Calories Burnt" required>
                     </div>
                     <div class="col-12">
                         <button class="btn btn-primary" type="submit">Log</button>

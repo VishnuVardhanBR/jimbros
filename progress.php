@@ -1,8 +1,10 @@
 <?php
 require 'partials/_unauth.php';
 require 'partials/_dbconnect.php';
-$daylogged = false;
+
 $anylogged = false;
+$mgrouplogged = false;
+$daylogged = false;
 $td = date("Y-m-d");
 $td2 = date("jS \of F Y");
 $sno = $_SESSION['sno'];
@@ -16,10 +18,14 @@ if (mysqli_num_rows($dayresult) >= 1) {
   }
 }
 $result = mysqli_query($conn, "SELECT * FROM dailylog WHERE uid='$sno' ORDER BY uid LIMIT 1;");
-while ($row = mysqli_fetch_row($result)) {
-  $startdate = $row['7'];
+if (mysqli_num_rows($result) >= 1) {
+  while ($row = mysqli_fetch_row($result)) {
+    $startdate = $row['7'];
+  }
+} else {
+  $startdate = date("M d, Y");
 }
-$sql = "SELECT COUNT(*) FROM dailylog WHERE uid = $sno";
+$sql = "SELECT * FROM dailylog WHERE uid = $sno";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
   $anylogged = true;
@@ -28,6 +34,7 @@ if (mysqli_num_rows($result) > 0) {
 $sql = "SELECT * FROM `workoutlog` WHERE uid = $sno and date LIKE '$td%'";
 $wdayresult = mysqli_query($conn, $sql);
 if (mysqli_num_rows($wdayresult) >= 1) {
+  $mgrouplogged = true;
   while ($row = mysqli_fetch_row($wdayresult)) {
     $wdres = array("id" => $row[0], "uid" => $row[1], "mgroup" => $row[2], "date" => $row[3]);
   }
@@ -57,9 +64,9 @@ if (mysqli_num_rows($edayresult) >= 1) {
 
 <body>
   <?php require 'partials/_nav.php' ?>
-  <?php if ($daylogged) {
-    require 'partials/_progresstoday.php';
-  }
+  <?php
+  require 'partials/_progresstoday.php';
+
   if ($anylogged) {
     require 'partials/_progresstotal.php';
   } ?>
@@ -70,13 +77,21 @@ if (mysqli_num_rows($edayresult) >= 1) {
       $height = $row['3'];
     }
     $result = mysqli_query($conn, "SELECT * FROM dailylog WHERE uid='$sno' ORDER BY did DESC LIMIT 1;");
-    while ($row = mysqli_fetch_row($result)) {
-      $weight = $row['2'];
-      $bmi = $row['6'];
+    if (mysqli_num_rows($result) >= 1) {
+      while ($row = mysqli_fetch_row($result)) {
+        $weight = $row['2'];
+        $bmi = $row['6'];
+      }
+    } else {
+      $result = mysqli_query($conn, "SELECT * FROM phychar WHERE uid='$sno' ORDER BY uid DESC LIMIT 1;");
+      while ($row = mysqli_fetch_row($result)) {
+        $weight = $row['2'];
+        $bmi = number_format((($weight / ($height * $height)) * 10000), 2, '.', '');
+      }
     }
     ?>
     <div class="row mb-3">
-      <div class="col-6">
+      <div class="col-8">
         <div class="col">
           <h1 class="display-1 fw-bold">Current Build
           </h1>

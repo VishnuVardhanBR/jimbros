@@ -14,6 +14,7 @@ echo '
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         ';
+
 if ($loggedin) {
     echo '<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
@@ -23,21 +24,7 @@ if ($loggedin) {
                 <li class="nav-item">
                     <a class="nav-link" href="/progress.php">Progress</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Groups
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/join.php">Join a group</a></li>
-                        <li><a class="dropdown-item" href="/invite.php">Invite a Jim Bro</a></li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">How to?</a>
-                        </li>
-                    </ul>
-                </li>
+
             </ul>
     <a type="button" class="btn btn-dark" href="/logout.php">Logout</a>
     </ul>';
@@ -48,3 +35,19 @@ if ($loggedin) {
 echo '</div>
     </div>
 </nav>';
+
+// <li class="nav-item dropdown">
+//                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+//                         Groups
+//                     </a>
+//                     <ul class="dropdown-menu">
+//                         <li><a class="dropdown-item" href="/join.php">Join a group</a></li>
+//                         <li><a class="dropdown-item" href="/invite.php">Invite a Jim Bro</a></li>
+//                         <li>
+//                             <hr class="dropdown-divider" />
+//                         </li>
+//                         <li>
+//                             <a class="dropdown-item" href="#">How to?</a>
+//                         </li>
+//                     </ul>
+//                 </li>

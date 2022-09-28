@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <strong>Success!</strong> Data inserted.
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>';
-        header('refresh:2; url=/main.php');
+        header('refresh:2; url=/index.php');
     }
     ?>
 
