@@ -45,6 +45,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <?php require 'partials/_header.php' ?>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            OpenBootstrapPopup();
+        };
+
+        function OpenBootstrapPopup() {
+            $("#myModal").modal('show');
+        }
+    </script>
 </head>
 
 <body>
@@ -55,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </i></a>
         </div>
     </nav>
+
     <?php
     if ($showError == true) {
         echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -63,6 +76,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>';
     }
     ?>
+    <div id="myModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Attention!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    This is just a project and not an actual product. Please do not enter any sensitive information in any of the fields. Do not enter a password that you have used on other sites.
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <form style="max-width:25%" class="mt-5 mx-auto" action="/login.php" method="POST">
             <div class="mb-3 fs-4">
